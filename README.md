@@ -14,6 +14,6 @@
 ## Участники команды №3 группы 1.1
   *А также их примерные роли и e-mail'ы*
   - Шаров Владимир, тестировщик, vovasharovv99@gmail.com
-  - Гладких Павел, backend-разработчик, paulglad1999@gmail.com
+  - Гладких Павел, backend-разработчик, переводчик, paulglad1999@gmail.com
   - Килигин Егор, frontend-разработчик, egor.kiligin@yandex.ru
   - Общий e-mail: team.no3@list.ru
