@@ -8,7 +8,8 @@
 #### Ссылки: [Trello](https://trello.com/b/Nwywkeih/onlinewallet "Проект в Trello команды №3"), [Miro](https://miro.com/app/board/o9J_kvWmD4U=/ "Проект в Miro команды №3"), [Figma](https://www.figma.com/files/project/6639882/OnlineWallet "Проект в Figma команды №3"), cсылка на готовое ТЗ появится, как только ТЗ появится в проекте. А это произойдёт ближе к его завершению. На данный момент оно разрабатывается с помощью [Google Docs](https://docs.google.com/document/d/1acGc4rVUPPcZ8SFIk1AeWLRRtEUkEWpRm0hXwhvxdFw/edit "Незаконченный вариант ТЗ").
 
 #### Участники команды №3 группы 1.1
-- Шаров Владимир (vovasharovv99@gmail.com)
-- Гладких Павел (paulglad1999@gmail.com)
-- Килигин Егор (egor.kiligin@yandex.ru)
+###### А также их e-mail'ы и примерные роли
+- Шаров Владимир, тестировщик, vovasharovv99@gmail.com
+- Гладких Павел, backend-разработчик, paulglad1999@gmail.com
+- Килигин Егор, frontend-разработчик, egor.kiligin@yandex.ru
 - Общий e-mail: team.no3@list.ru
