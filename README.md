@@ -19,5 +19,3 @@
 ## Ссылки: 
 - **[Trello](https://trello.com/b/Nwywkeih/onlinewallet "Проект в Trello команды №3")**
 - **[Miro](https://miro.com/app/board/o9J_kvWmD4U=/ "Проект в Miro команды №3")**
-- **[Figma](https://www.figma.com/files/project/6639882/OnlineWallet "Проект в Figma команды №3")**
-- **cсылка на готовое ТЗ появится, как только ТЗ появится в проекте. А это произойдёт ближе к его завершению. На данный момент оно разрабатывается с помощью [Google Docs](https://docs.google.com/document/d/1acGc4rVUPPcZ8SFIk1AeWLRRtEUkEWpRm0hXwhvxdFw/edit "Незаконченный вариант ТЗ").**
