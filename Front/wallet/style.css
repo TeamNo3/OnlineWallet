@@ -1,27 +1,32 @@
 a{
-	color:#fff;
+	color:#000000;
 	text-decoration: none;
 }
 .header{
 	display: flex;
 	justify-content: space-between;
 	padding: 10px;
-	background: #689CD2;
-	color: #fff;
+	color: #FFFFFF;
 	font-family: Helvetica;
+	align-items: left;
+	margin-right: 10px;
 }
 
 .header_section{
+	background: #FFFFFF;
 	display: flex;
 	align-items: center;
 }
 .logo{
-	max-height: 100px;
-	max-width: 100px;
+	display:flex;
+	width:100px;
 }
-
+.img{
+	height: 100px;
+	width: 100px;
+}
 .header_item{
-	padding: 20px 20px;
+	padding: 10px 10px;
 	font-size: 25px;
 	margin-left: 5px;
 }
@@ -29,4 +34,8 @@ a{
 .header_item:hover{
 	background-color: #FF9900;
 	border-radius: 4px;
+}
+
+.header_Btn{
+	cursor: pointer;
 }
