@@ -4,7 +4,7 @@ a{
 }
 .header{
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	padding: 10px;
 	color: #FFFFFF;
 	font-family: Helvetica;
@@ -12,18 +12,25 @@ a{
 	margin-right: 10px;
 }
 
-.header_section{
+.header_section1{
 	background: #FFFFFF;
 	display: flex;
 	align-items: center;
 }
+
+.header_section2{
+	background: #FFFFFF;
+	display: flex;
+	align-items: center;
+	margin-left: 100px;
+}
 .logo{
-	display:flex;
-	width:100px;
+	justify-content: center;
+	display: flex;
 }
 .img{
-	height: 100px;
-	width: 100px;
+	height: 150px;
+	width: 150px;
 }
 .header_item{
 	padding: 10px 10px;
