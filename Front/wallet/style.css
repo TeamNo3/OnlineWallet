@@ -3,6 +3,8 @@ a{
 	text-decoration: none;
 }
 
+
+
 		/* -- Header -- */
 		
 .header{
@@ -13,12 +15,15 @@ a{
 	font-family: Helvetica;
 	align-items: left;
 	margin-right: 10px;
+
+
 }
 
 .header_section1{
 	background: #FFFFFF;
 	display: flex;
 	align-items: center;
+
 }
 
 .header_section2{
@@ -61,8 +66,8 @@ a{
 }
 
 .border{
-	/*border: 2px solid silver;*/
 	border-radius: 25px;
+
 }
 .content-up{
 	display: flex;
