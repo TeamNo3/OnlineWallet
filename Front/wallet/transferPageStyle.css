@@ -4,7 +4,7 @@ a{
 }
 
 		/* -- Header -- */
-		
+
 .header{
 	display: flex;
 	justify-content: center;
@@ -55,39 +55,49 @@ a{
 .content{
 	display: flex;
 	flex-direction: column;
+	box-shadow: 0 0 7px rgba(0,0,0,0.2);
 	/*background-color: #FFF7DD;*/
-	min-height: 400px;
-
+	/*min-height: 400px;*/
+	margin-bottom: 10px;
 }
 
-.border{
-	/*border: 2px solid silver;*/
-	border-radius: 25px;
-}
-.content-up{
-	display: flex;
-	justify-content: center;
-	min-width: 80%;
-}
-	.content-block{
-		min-height: 150px;
-		max-height: 250px;
-		min-width: 49%;
-		margin-left: 10px;
-		margin-right: 10px;
-		margin-bottom: 10px;
-		background-color: white;
-		box-shadow: 0 0 7px rgba(0,0,0,0.5);
-		
-	}
-
-.content-down{
+.content-main{
 	
 	min-height:250px;
 	min-width: 150px;
-	background-color: white;
-	box-shadow: 0 0 7px rgba(0,0,0,0.5);
-	margin-bottom: 10px;
+	/*background-color: white;*/
+	box-shadow: 0 0 7px rgba(0,0,0,0.9);
+	margin:20px 30% 20px 30%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 1px;
+	text-align: center;
+	background: white;
+
+
+}
+	#content-main-p{
+		text-align: center;
+
+	}
+.content-main-input{
+	text-align: center;
+	width: 25%;
+	border: 1px solid #77f7ff;
+}
+
+.content-main-button{
+	width: 26%;
+	border: 1px solid black;
+	font-size: 14pt;
+	padding: 1px;
+}
+	.content-main-button:hover {
+		border: 1px solid silver;
+	}
+
+.border{
+	border-radius: 25px;
 }
 
 		/* -- Footer -- */
