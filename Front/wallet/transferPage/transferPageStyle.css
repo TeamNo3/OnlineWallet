@@ -3,26 +3,31 @@ a{
 	text-decoration: none;
 }
 
+body{
+	background-image: url(../photos/double-bubble-outline.png) ;
+	background-repeat:repeat;
+}
+
 		/* -- Header -- */
 
 .header{
 	display: flex;
 	justify-content: center;
 	padding: 10px;
-	color: #FFFFFF;
+	/*color: #FFFFFF;*/
 	font-family: Helvetica;
 	align-items: left;
 	margin-right: 10px;
 }
 
 .header_section1{
-	background: #FFFFFF;
+	/*background: #FFFFFF;*/
 	display: flex;
 	align-items: center;
 }
 
 .header_section2{
-	background: #FFFFFF;
+	/*background: #FFFFFF;*/
 	display: flex;
 	align-items: center;
 	margin-left: 100px;
