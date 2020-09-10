@@ -1,1 +1,119 @@
-rechargePage.css
+a{
+	color:#000000;
+	text-decoration: none;
+}
+
+body{
+	background-image: url(../photos/double-bubble-outline.png) ;
+	background-repeat:repeat;
+}
+
+		/* -- Header -- */
+
+.header{
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+	/*color: #FFFFFF;*/
+	font-family: Helvetica;
+	align-items: left;
+	margin-right: 10px;
+}
+
+.header_section1{
+	/*background: #FFFFFF;*/
+	display: flex;
+	align-items: center;
+}
+
+.header_section2{
+	/*background: #FFFFFF;*/
+	display: flex;
+	align-items: center;
+	margin-left: 100px;
+}
+.logo{
+	justify-content: center;
+	display: flex;
+}
+.img{
+	height: 150px;
+	width: 150px;
+}
+.header_item{
+	padding: 10px 10px;
+	font-size: 25px;
+	margin-left: 5px;
+}
+
+.header_item:hover{
+	background-color: #FF9900;
+	border-radius: 4px;
+}
+
+.header_Btn{
+	cursor: pointer;
+}
+
+		/* -- Content -- */
+
+.content{
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 0 7px rgba(0,0,0,0.2);
+	/*background-color: #FFF7DD;*/
+	min-height: 400px;
+	margin-bottom: 10px;
+}
+
+.content-main{
+	
+	min-height:250px;
+	min-width: 150px;
+	/*background-color: white;*/
+	box-shadow: 0 0 7px rgba(0,0,0,0.9);
+	margin: 6% 30% 0 30%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 1px;
+	text-align: center;
+	background: white;
+
+
+}
+	#content-main-p{
+		text-align: center;
+
+	}
+.content-main-input{
+	text-align: center;
+	width: 35%;
+	border: 1px solid #77f7ff;
+	margin-top: 20px;
+}
+
+.content-main-button{
+	width: 26%;
+	border: 1px solid black;
+	font-size: 14pt;
+	padding: 1px;
+	margin-top: 60px;
+}
+	.content-main-button:hover {
+		border: 1px solid silver;
+	}
+
+.border{
+	border-radius: 25px;
+}
+
+		/* -- Footer -- */
+
+.footer{
+	display: flex;
+	justify-content: space-between;
+	border-radius: 25px;
+	/*background-color: #7fffff;*/
+	background: linear-gradient(#7fffff, white);
+	padding: 0 20px 0 20px;
+}
