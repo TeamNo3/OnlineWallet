@@ -25,5 +25,8 @@ namespace Database
         [Required]
         [Column("email", TypeName = "varchar(100)")]
         public string Email { get; set; }
+        [Required]
+        [Column("password", TypeName = "varchar(45)")]
+        public string Password { get; set; }
     }
 }

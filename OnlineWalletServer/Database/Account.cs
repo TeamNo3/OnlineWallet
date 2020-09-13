@@ -15,12 +15,12 @@ namespace Database
         }
 
         [Key]
-        [Column("id", TypeName = "int(11)")]
-        public int Id { get; set; }
-        [Column("balance")]
-        public float? Balance { get; set; }
+        [Column("id", TypeName = "int(16) unsigned")]
+        public uint Id { get; set; }
+        [Column("balance", TypeName = "float unsigned")]
+        public float Balance { get; set; }
         [Column("isFrozen")]
-        public bool? IsFrozen { get; set; }
+        public bool IsFrozen { get; set; }
 
         [InverseProperty(nameof(Transaction.FromNavigation))]
         public virtual ICollection<Transaction> TransactionFromNavigation { get; set; }

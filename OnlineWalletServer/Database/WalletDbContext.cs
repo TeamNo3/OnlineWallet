@@ -49,6 +49,10 @@ namespace Database
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
+                entity.Property(e => e.Password)
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
                 entity.Property(e => e.Username)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
@@ -57,19 +61,21 @@ namespace Database
             modelBuilder.Entity<Transaction>(entity =>
             {
                 entity.HasIndex(e => e.From)
-                    .HasName("_from");
+                    .HasName("transaction_ibfk_1");
 
                 entity.HasIndex(e => e.To)
-                    .HasName("_to");
+                    .HasName("transaction_ibfk_2");
 
                 entity.HasOne(d => d.FromNavigation)
                     .WithMany(p => p.TransactionFromNavigation)
                     .HasForeignKey(d => d.From)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("transaction_ibfk_1");
 
                 entity.HasOne(d => d.ToNavigation)
                     .WithMany(p => p.TransactionToNavigation)
                     .HasForeignKey(d => d.To)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("transaction_ibfk_2");
             });
 
@@ -88,6 +94,10 @@ namespace Database
                     .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.Middlename)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.Password)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
