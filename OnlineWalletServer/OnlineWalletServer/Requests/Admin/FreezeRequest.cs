@@ -7,6 +7,6 @@ namespace OnlineWalletServer.Requests.Admin
 {
     public class FreezeRequest
     {
-        public uint Account { get; set; }
+        public byte[] Account { get; set; }
     }
 }

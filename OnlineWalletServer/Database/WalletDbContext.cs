@@ -31,6 +31,11 @@ namespace Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Account>(entity =>
+            {
+                entity.Property(e => e.Id).IsFixedLength();
+            });
+
             modelBuilder.Entity<Administrator>(entity =>
             {
                 entity.HasIndex(e => e.Email)
@@ -74,17 +79,9 @@ namespace Database
                 entity.HasIndex(e => e.To)
                     .HasName("transaction_ibfk_2");
 
-                entity.HasOne(d => d.FromNavigation)
-                    .WithMany(p => p.TransactionFromNavigation)
-                    .HasForeignKey(d => d.From)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("transaction_ibfk_1");
+                entity.Property(e => e.From).IsFixedLength();
 
-                entity.HasOne(d => d.ToNavigation)
-                    .WithMany(p => p.TransactionToNavigation)
-                    .HasForeignKey(d => d.To)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("transaction_ibfk_2");
+                entity.Property(e => e.To).IsFixedLength();
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -100,6 +97,8 @@ namespace Database
                 entity.HasIndex(e => e.Username)
                     .HasName("username_UNIQUE")
                     .IsUnique();
+
+                entity.Property(e => e.Account).IsFixedLength();
 
                 entity.Property(e => e.Email)
                     .HasCharSet("utf8mb4")
@@ -124,12 +123,6 @@ namespace Database
                 entity.Property(e => e.Username)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
-
-                entity.HasOne(d => d.AccountNavigation)
-                    .WithOne(p => p.User)
-                    .HasForeignKey<User>(d => d.Account)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_idfk_1");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -13,18 +13,15 @@ namespace Database
         public int Id { get; set; }
         [Column("amount", TypeName = "float unsigned")]
         public float Amount { get; set; }
-        [Column("_from", TypeName = "int(16) unsigned")]
-        public uint From { get; set; }
-        [Column("_to", TypeName = "int(16) unsigned")]
-        public uint To { get; set; }
+        [Required]
+        [Column("_from")]
+        [MaxLength(16)]
+        public byte[] From { get; set; }
+        [Required]
+        [Column("_to")]
+        [MaxLength(16)]
+        public byte[] To { get; set; }
         [Column("_datetime", TypeName = "datetime")]
         public DateTime Datetime { get; set; }
-
-        [ForeignKey(nameof(From))]
-        [InverseProperty(nameof(Account.TransactionFromNavigation))]
-        public virtual Account FromNavigation { get; set; }
-        [ForeignKey(nameof(To))]
-        [InverseProperty(nameof(Account.TransactionToNavigation))]
-        public virtual Account ToNavigation { get; set; }
     }
 }

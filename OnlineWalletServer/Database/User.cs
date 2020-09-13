@@ -30,11 +30,9 @@ namespace Database
         [Required]
         [Column("password", TypeName = "varchar(45)")]
         public string Password { get; set; }
-        [Column("account", TypeName = "int(16) unsigned")]
-        public uint Account { get; set; }
-
-        [ForeignKey(nameof(Account))]
-        [InverseProperty("User")]
-        public virtual Account AccountNavigation { get; set; }
+        [Required]
+        [Column("account")]
+        [MaxLength(16)]
+        public byte[] Account { get; set; }
     }
 }

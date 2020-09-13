@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Database;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OnlineWalletServer.Authenticator;
 using OnlineWalletServer.Requests.Users;
 
 namespace OnlineWalletServer.Controllers
@@ -16,9 +18,11 @@ namespace OnlineWalletServer.Controllers
     {
         private readonly WalletDbContext _dbContext;
 
+        public IAuthenticator authenticator { get; set; }
+
         public UsersController(WalletDbContext dbContext)
         {
-            this._dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         [HttpPost]
@@ -35,10 +39,15 @@ namespace OnlineWalletServer.Controllers
             // добавляем пользователя в бд
             await _dbContext.User.AddAsync(new User
             {
-                Username = request.Username, Firstname = request.Firstname, Middlename = request.Middlename,
-                Lastname = request.Lastname,
+                Username = request.Username, Firstname = request.Firstname, Middlename = request.Middlename, Lastname = request.Lastname,
                 Email = request.Email, Password = request.Password
             });
+
+            await _dbContext.Account.AddAsync(new Account
+            {
+                Id = Guid.NewGuid().ToByteArray(), Balance = 0, IsFrozen = false
+            });
+
             await _dbContext.SaveChangesAsync();
 
             await Authenticate(request.Username); // аутентификация
@@ -76,21 +85,13 @@ namespace OnlineWalletServer.Controllers
 
         private async Task Authenticate(string userName)
         {
-            // создаем один claim
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
-            };
-            // создаем объект ClaimsIdentity
-            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            // установка аутентификационных куки
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            await authenticator.Authenticate(userName);
         }
 
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await authenticator.Logout();
             return RedirectToAction("Login", "Users");
         }
     }
