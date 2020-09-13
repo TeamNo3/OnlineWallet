@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Database;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineWalletServer.Requests.Admin;
 
 namespace OnlineWalletServer.Controllers
@@ -9,32 +11,27 @@ namespace OnlineWalletServer.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private WalletDbContext dbContext;
+        private WalletDbContext _dbContext;
 
         public AdminController(WalletDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
-
-        [HttpPost]
-        [Route("authenticate")]
-        public async Task Post([FromBody] SignInRequest request)
-        {
-
-        }
-
+        
         [HttpPost]
         [Route("freeze")]
-        public async Task Post([FromBody] FreezeRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Freeze([FromBody] FreezeRequest request)
         {
-
+            return new OkResult();
         }
 
         [HttpPost]
         [Route("cancel")]
-        public async Task Post([FromBody] TransactionCancelRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Cancel([FromBody] TransactionCancelRequest request)
         {
-
+            return new OkResult();
         }
     }
 }

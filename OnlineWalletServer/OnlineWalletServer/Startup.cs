@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,14 +19,19 @@ namespace OnlineWalletServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/user/login");
+                });
+
             services.AddControllers();
+
             services.AddHsts(options => { options.IncludeSubDomains = true; });
 
             services.AddDistributedMemoryCache();
-            services.AddSession();
 
-            services.AddMvcCore()
-                .AddApiExplorer();
+            services.AddMvcCore().AddApiExplorer();
 
             services.AddSwaggerGen();
         }
@@ -56,6 +62,7 @@ namespace OnlineWalletServer
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();

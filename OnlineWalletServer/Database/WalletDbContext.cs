@@ -33,6 +33,14 @@ namespace Database
         {
             modelBuilder.Entity<Administrator>(entity =>
             {
+                entity.HasIndex(e => e.Email)
+                    .HasName("email_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Username)
+                    .HasName("username_UNIQUE")
+                    .IsUnique();
+
                 entity.Property(e => e.Email)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
@@ -83,6 +91,14 @@ namespace Database
             {
                 entity.HasIndex(e => e.Account)
                     .HasName("account_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Email)
+                    .HasName("email_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Username)
+                    .HasName("username_UNIQUE")
                     .IsUnique();
 
                 entity.Property(e => e.Email)
