@@ -22,6 +22,8 @@ namespace Database
         [Column("isFrozen")]
         public bool IsFrozen { get; set; }
 
+        [InverseProperty("AccountNavigation")]
+        public virtual User User { get; set; }
         [InverseProperty(nameof(Transaction.FromNavigation))]
         public virtual ICollection<Transaction> TransactionFromNavigation { get; set; }
         [InverseProperty(nameof(Transaction.ToNavigation))]

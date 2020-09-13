@@ -81,6 +81,10 @@ namespace Database
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Account)
+                    .HasName("account_UNIQUE")
+                    .IsUnique();
+
                 entity.Property(e => e.Email)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
@@ -104,6 +108,12 @@ namespace Database
                 entity.Property(e => e.Username)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.HasOne(d => d.AccountNavigation)
+                    .WithOne(p => p.User)
+                    .HasForeignKey<User>(d => d.Account)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("user_idfk_1");
             });
 
             OnModelCreatingPartial(modelBuilder);
