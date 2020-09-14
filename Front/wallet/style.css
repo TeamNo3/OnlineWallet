@@ -110,3 +110,10 @@ body{
 	background: linear-gradient(#7fffff, white);
 	padding: 0 20px 0 20px;
 }
+
+
+		/* -- Registration From -- */
+
+.registrationForm{
+	/*display: none;*/
+}
