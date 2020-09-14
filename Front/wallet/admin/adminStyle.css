@@ -2,6 +2,11 @@ body{
 	background-image: url(../photos/double-bubble-outline.png) ;
 	background-repeat:repeat;
 }
+a{
+
+	color:#000000;
+	text-decoration: none;
+}
 
 .login {
 	display: flex;
@@ -71,4 +76,49 @@ body{
 
 .border{
 	border-radius: 25px;
+}
+
+
+/* autorized */
+.content-up{
+	display: flex;
+	justify-content: center;
+	min-width: 80%;
+	margin-top: 5%;
+}
+
+.content-block{
+		min-height: 100px;
+		max-height: 150px;
+		min-width: 20%;
+		margin-left: 100px;
+		margin-right: 100px;
+		margin-bottom: 10px;
+		background-color: white;
+		box-shadow: 0 0 7px rgba(0,0,0,0.5);
+		
+	}
+
+.exit {
+	display: flex;
+	justify-content: center;
+	/*padding-top: 20px;*/
+
+	min-width: 1%;
+	min-height: 50px;
+	max-height: 100px;
+	max-width: 5%;
+	box-shadow: 0 0 7px rgba(0,0,0,0.5);
+	background-color: white;
+}
+.exit-align{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.exit-align:hover {
+	background-color: orange;
+}
+.content-align{
+	margin-top: 40px;
+	margin-left:80px;
 }
