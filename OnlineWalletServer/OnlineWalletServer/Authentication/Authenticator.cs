@@ -5,13 +5,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 
-namespace OnlineWalletServer.Authenticator
+namespace OnlineWalletServer.Authentication
 {
-    class Authenticator : IAuthenticator
+    public class Authenticator : IAuthenticator
     {
-        public HttpContext HttpContext { get; set; }
-
-        public async Task Authenticate(string userName)
+        public async Task Authenticate(string userName, HttpContext context)
         {
             // создаем один claim
             var claims = new List<Claim>
@@ -21,12 +19,12 @@ namespace OnlineWalletServer.Authenticator
             // создаем объект ClaimsIdentity
             var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
-        public async Task Logout()
+        public async Task Logout(HttpContext context)
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
     }
 }

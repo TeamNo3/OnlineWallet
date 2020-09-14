@@ -9,6 +9,6 @@ namespace OnlineWalletServer.Requests.Accounts
     {
         public float MoneyAmount { get; set; }
 
-        public byte[] Account { get; set; }
+        public string Account { get; set; }
     }
 }

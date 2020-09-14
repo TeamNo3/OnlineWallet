@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OnlineWalletServer.Authenticator;
+using OnlineWalletServer.Authentication;
 using OnlineWalletServer.Requests.Users;
 
 namespace OnlineWalletServer.Controllers
@@ -18,11 +18,12 @@ namespace OnlineWalletServer.Controllers
     {
         private readonly WalletDbContext _dbContext;
 
-        public IAuthenticator authenticator { get; set; }
+        private readonly IAuthenticator _authenticator;
 
-        public UsersController(WalletDbContext dbContext)
+        public UsersController(WalletDbContext dbContext, IAuthenticator authenticator)
         {
             _dbContext = dbContext;
+            _authenticator = authenticator;
         }
 
         [HttpPost]
@@ -34,18 +35,22 @@ namespace OnlineWalletServer.Controllers
             var user = await _dbContext.User.FirstOrDefaultAsync(u =>
                 u.Email == request.Email || u.Username == request.Username);
 
-            if (user != null) return StatusCode(409);
+            if (user != null) return StatusCode(205);
 
-            // добавляем пользователя в бд
-            await _dbContext.User.AddAsync(new User
-            {
-                Username = request.Username, Firstname = request.Firstname, Middlename = request.Middlename, Lastname = request.Lastname,
-                Email = request.Email, Password = request.Password
-            });
+            var accountId = Guid.NewGuid().ToString();
 
             await _dbContext.Account.AddAsync(new Account
             {
-                Id = Guid.NewGuid().ToByteArray(), Balance = 0, IsFrozen = false
+                Id = accountId,
+                Balance = 0,
+                IsFrozen = false
+            });
+
+            await _dbContext.User.AddAsync(new User
+            {
+                Username = request.Username, Firstname = request.Firstname, Middlename = request.Middlename,
+                Lastname = request.Lastname,
+                Email = request.Email, Password = request.Password, Account = accountId
             });
 
             await _dbContext.SaveChangesAsync();
@@ -74,24 +79,25 @@ namespace OnlineWalletServer.Controllers
         {
             if (!ModelState.IsValid) return new BadRequestResult();
 
-            var user = await _dbContext.User.FirstOrDefaultAsync(u => (u.Username == request.Login || u.Email == request.Login) && u.Password == request.Password);
-            if (user == null) return new UnauthorizedResult();
+            var user = await _dbContext.User.FirstOrDefaultAsync(u =>
+                (u.Username == request.Login || u.Email == request.Login) && u.Password == request.Password);
+            if (user == null) return StatusCode(205);
 
             await Authenticate(user.Username); // аутентификация
 
             return new OkResult();
-
         }
 
         private async Task Authenticate(string userName)
         {
-            await authenticator.Authenticate(userName);
+            await _authenticator.Authenticate(userName, HttpContext);
         }
 
+        [HttpPost]
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            await authenticator.Logout();
+            await _authenticator.Logout(HttpContext);
             return RedirectToAction("Login", "Users");
         }
     }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineWalletServer.Requests.Accounts;
 using Services.Transactions;
+using Services.Transactions.Exceptions;
 
 namespace OnlineWalletServer.Controllers
 {
@@ -15,11 +16,12 @@ namespace OnlineWalletServer.Controllers
     {
         private readonly WalletDbContext _dbContext;
 
-        public ITransactionPerformer Transaction { get; set; }
+        private readonly ITransactionPerformer _transaction;
 
-        public AccountsController(WalletDbContext dbContext)
+        public AccountsController(WalletDbContext dbContext, ITransactionPerformer transaction)
         {
             _dbContext = dbContext;
+            _transaction = transaction;
         }
 
         [HttpPost]
@@ -28,7 +30,8 @@ namespace OnlineWalletServer.Controllers
         public async Task<IActionResult> Add([FromBody] AddRequest request)
         {
             var account = await _dbContext.Account.FirstOrDefaultAsync(a => a.Id == request.Account);
-            if (account == null) return new BadRequestResult();
+            if (account == null) return StatusCode(205);
+            if (account.IsFrozen) return StatusCode(202);
             account.Balance += request.MoneyAmount;
             await _dbContext.SaveChangesAsync();
             return new OkResult();
@@ -37,12 +40,25 @@ namespace OnlineWalletServer.Controllers
         [HttpPost]
         [Route("transfer")]
         [Authorize]
-        public async Task Transfer([FromBody] TransferRequest request)
+        public async Task<IActionResult> Transfer([FromBody] TransferRequest request)
         {
             var transaction = new Transaction
                 {Amount = request.MoneyAmount, Datetime = DateTime.Now, From = request.From, To = request.To};
-            await Transaction.PerformAsync(transaction);
+            try
+            {
+                await _transaction.PerformAsync(transaction);
+            }
+            catch (AccountsNotFoundException e)
+            {
+                return StatusCode(205);
+            }
+            catch (AccountsFrozenException e)
+            {
+                return StatusCode(202);
+            }
+
             await _dbContext.Transaction.AddAsync(transaction);
+            return new OkResult();
         }
     }
 }

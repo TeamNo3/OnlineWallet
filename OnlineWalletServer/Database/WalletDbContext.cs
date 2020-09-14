@@ -33,7 +33,9 @@ namespace Database
         {
             modelBuilder.Entity<Account>(entity =>
             {
-                entity.Property(e => e.Id).IsFixedLength();
+                entity.Property(e => e.Id)
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
             });
 
             modelBuilder.Entity<Administrator>(entity =>
@@ -74,14 +76,30 @@ namespace Database
             modelBuilder.Entity<Transaction>(entity =>
             {
                 entity.HasIndex(e => e.From)
-                    .HasName("transaction_ibfk_1");
+                    .HasName("from_account");
 
                 entity.HasIndex(e => e.To)
-                    .HasName("transaction_ibfk_2");
+                    .HasName("to_account");
 
-                entity.Property(e => e.From).IsFixedLength();
+                entity.Property(e => e.From)
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
 
-                entity.Property(e => e.To).IsFixedLength();
+                entity.Property(e => e.To)
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.HasOne(d => d.FromNavigation)
+                    .WithMany(p => p.TransactionFromNavigation)
+                    .HasForeignKey(d => d.From)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("from_account");
+
+                entity.HasOne(d => d.ToNavigation)
+                    .WithMany(p => p.TransactionToNavigation)
+                    .HasForeignKey(d => d.To)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("to_account");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -98,7 +116,9 @@ namespace Database
                     .HasName("username_UNIQUE")
                     .IsUnique();
 
-                entity.Property(e => e.Account).IsFixedLength();
+                entity.Property(e => e.Account)
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
 
                 entity.Property(e => e.Email)
                     .HasCharSet("utf8mb4")
@@ -123,6 +143,12 @@ namespace Database
                 entity.Property(e => e.Username)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.HasOne(d => d.AccountNavigation)
+                    .WithOne(p => p.User)
+                    .HasForeignKey<User>(d => d.Account)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("users_account");
             });
 
             OnModelCreatingPartial(modelBuilder);
