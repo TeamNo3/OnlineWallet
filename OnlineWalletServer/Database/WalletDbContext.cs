@@ -25,7 +25,7 @@ namespace Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=onlinewallet;user=root;password=Paul.4899", x => x.ServerVersion("8.0.11-mysql"));
+                optionsBuilder.UseMySql("server=localhost;database=onlinewallet;user=root;password=1111", x => x.ServerVersion("8.0.11-mysql"));
             }
         }
 
