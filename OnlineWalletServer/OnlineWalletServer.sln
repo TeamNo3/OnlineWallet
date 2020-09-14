@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineWalletServer", "OnlineWalletServer\OnlineWalletServer.csproj", "{8A78D155-282C-4F66-8963-F830E090067A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWalletServer", "OnlineWalletServer\OnlineWalletServer.csproj", "{8A78D155-282C-4F66-8963-F830E090067A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{89446A57-CEC0-4BAA-A02B-9161134926E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{420C63BC-077B-49FA-8A4A-37E79CD04B72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{8A78D155-282C-4F66-8963-F830E090067A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A78D155-282C-4F66-8963-F830E090067A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A78D155-282C-4F66-8963-F830E090067A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89446A57-CEC0-4BAA-A02B-9161134926E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89446A57-CEC0-4BAA-A02B-9161134926E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89446A57-CEC0-4BAA-A02B-9161134926E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89446A57-CEC0-4BAA-A02B-9161134926E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{420C63BC-077B-49FA-8A4A-37E79CD04B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{420C63BC-077B-49FA-8A4A-37E79CD04B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{420C63BC-077B-49FA-8A4A-37E79CD04B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{420C63BC-077B-49FA-8A4A-37E79CD04B72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
