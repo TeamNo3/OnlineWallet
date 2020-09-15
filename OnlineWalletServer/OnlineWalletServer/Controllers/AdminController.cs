@@ -27,46 +27,76 @@ namespace OnlineWalletServer.Controllers
             _transaction = transaction;
         }
 
+        /// <summary>
+        /// Авторизация администратора
+        /// </summary>
+        /// <param name="signInRequestAdmin"></param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="202">Неверный пароль</response>
+        /// <response code="205">Администратор не найден</response>
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] SignInRequestAdmin request)
+        public async Task<IActionResult> Login([FromBody] SignInRequestAdmin signInRequestAdmin)
         {
             if (!ModelState.IsValid) return new BadRequestResult();
 
-            var admin = await _dbContext.Administrator.FirstOrDefaultAsync(a => (a.Username == request.Login || a.Email == request.Login) && a.Password == request.Password);
+            var admin = await _dbContext.Administrator.FirstOrDefaultAsync(a => a.Username == signInRequestAdmin.Login || a.Email == signInRequestAdmin.Login);
             if (admin == null) return StatusCode(205);
 
+            if (admin.Password != signInRequestAdmin.Password) return StatusCode(202);
             await Authenticate(admin.Username); // аутентификация
 
             return new OkResult();
         }
 
+        /// <summary>
+        /// Замораживает указанный номер счёта
+        /// </summary>
+        /// <param name="freezeRequest"></param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="205">Номер счёта не найден</response>
         [HttpPost]
         [Route("freeze")]
-        public async Task<IActionResult> Freeze([FromBody] FreezeRequest request)
+        public async Task<IActionResult> Freeze([FromBody] FreezeRequest freezeRequest)
         {
             if (!ModelState.IsValid) return new BadRequestResult();
 
-            var account = await _dbContext.Account.FirstOrDefaultAsync(a => a.Id == request.Account);
+            var account = await _dbContext.Account.FirstOrDefaultAsync(a => a.Id == freezeRequest.Account);
             if (account == null) return StatusCode(205);
             account.IsFrozen = true;
             await _dbContext.SaveChangesAsync();
             return new OkResult();
         }
 
+        /// <summary>
+        /// Размораживает указанный номер счёта
+        /// </summary>
+        /// <param name="freezeRequest"></param>
+        /// <returns></returns>
+        /// <response code="200">Successful operation</response>
+        /// <response code="205">Номер счёта не найден</response>
         [HttpPost]
         [Route("unfreeze")]
-        public async Task<IActionResult> UnFreeze([FromBody] FreezeRequest request)
+        public async Task<IActionResult> UnFreeze([FromBody] FreezeRequest freezeRequest)
         {
             if (!ModelState.IsValid) return new BadRequestResult();
 
-            var account = await _dbContext.Account.FirstOrDefaultAsync(a => a.Id == request.Account);
+            var account = await _dbContext.Account.FirstOrDefaultAsync(a => a.Id == freezeRequest.Account);
             if (account == null) return StatusCode(205);
             account.IsFrozen = false;
             await _dbContext.SaveChangesAsync();
             return new OkResult();
         }
 
+        /// <summary>
+        /// Отменяет перевод
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <response code="200">Successful operation</response>
+        /// <response code="202">Один из счетов заморожен</response>
+        /// <response code="204">Транзакция не найдена</response>
+        /// <response code="205">Один из номеров счёта не найден</response>
         [HttpPost]
         [Route("cancel")]
         public async Task<IActionResult> Cancel([FromBody] TransactionCancelRequest request)

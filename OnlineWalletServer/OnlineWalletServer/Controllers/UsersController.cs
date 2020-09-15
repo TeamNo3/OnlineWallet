@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Database;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineWalletServer.Authentication;
@@ -26,14 +22,20 @@ namespace OnlineWalletServer.Controllers
             _authenticator = authenticator;
         }
 
+        /// <summary>
+        /// Регистрирует нового пользователя
+        /// </summary>
+        /// <param name="signUpRequest"></param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="205">Пользователь с таким именем или email-адресом уже существует</response>
         [HttpPost]
         [Route("signup")]
-        public async Task<IActionResult> Register([FromBody] SignUpRequest request)
+        public async Task<IActionResult> Register([FromBody] SignUpRequest signUpRequest)
         {
             if (!ModelState.IsValid) return new BadRequestResult();
 
             var user = await _dbContext.User.FirstOrDefaultAsync(u =>
-                u.Email == request.Email || u.Username == request.Username);
+                u.Email == signUpRequest.Email || u.Username == signUpRequest.Username);
 
             if (user != null) return StatusCode(205);
 
@@ -48,42 +50,56 @@ namespace OnlineWalletServer.Controllers
 
             await _dbContext.User.AddAsync(new User
             {
-                Username = request.Username, Firstname = request.Firstname, Middlename = request.Middlename,
-                Lastname = request.Lastname,
-                Email = request.Email, Password = request.Password, Account = accountId
+                Username = signUpRequest.Username, Firstname = signUpRequest.Firstname, Middlename = signUpRequest.Middlename,
+                Lastname = signUpRequest.Lastname,
+                Email = signUpRequest.Email, Password = signUpRequest.Password, Account = accountId
             });
 
             await _dbContext.SaveChangesAsync();
 
-            await Authenticate(request.Username); // аутентификация
+            await Authenticate(signUpRequest.Username); // аутентификация
 
             return new OkResult();
 
         }
 
+        /// <summary>
+        /// Подтверждение указанного пользователя
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="205">Пользователь не найден</response>
         [HttpPost]
         [Route("confirm/{userId}")]
         public async Task<IActionResult> Confirm([FromRoute] int userId)
         {
             var user = await _dbContext.User.FirstOrDefaultAsync(u => u.Id == userId);
-            if (user == null) return new BadRequestResult();
+            if (user == null) return StatusCode(205);
 
             user.IsConfirmed = true;
             await _dbContext.SaveChangesAsync();
             return new OkResult();
         }
 
+        /// <summary>
+        /// Авторизация пользователя
+        /// </summary>
+        /// <param name="signInRequest"></param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="202">Неверный пароль</response>
+        /// <response code="205">Пользователь не найден</response>
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] SignInRequest request)
+        public async Task<IActionResult> Login([FromBody] SignInRequest signInRequest)
         {
             if (!ModelState.IsValid) return new BadRequestResult();
 
-            var user = await _dbContext.User.FirstOrDefaultAsync(u =>
-                (u.Username == request.Login || u.Email == request.Login) && u.Password == request.Password);
+            var user = await _dbContext.User.FirstOrDefaultAsync(u => u.Username == signInRequest.Login || u.Email == signInRequest.Login);
             if (user == null) return StatusCode(205);
 
-            await Authenticate(user.Username); // аутентификация
+            if (user.Password != signInRequest.Password) return StatusCode(202);
+
+            await Authenticate(user.Username);
 
             return new OkResult();
         }
