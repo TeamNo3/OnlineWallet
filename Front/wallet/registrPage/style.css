@@ -119,6 +119,9 @@ body{
 	padding: 0 20px 0 20px;
 	margin-top: 5%;
 }
+.margin {
+	margin-top:20%;
+}
 
 .registration{
 	display: flex;
