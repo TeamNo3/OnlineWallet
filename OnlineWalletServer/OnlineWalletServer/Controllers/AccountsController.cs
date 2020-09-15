@@ -24,6 +24,13 @@ namespace OnlineWalletServer.Controllers
             _transaction = transaction;
         }
 
+        /// <summary>
+        /// Пополняет указанный счёт на указанную сумму
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="202">Счёт заморожен</response>
+        /// <response code="205">Номер счёта не найден</response>
         [HttpPost]
         [Route("add")]
         [Authorize]
@@ -37,6 +44,13 @@ namespace OnlineWalletServer.Controllers
             return new OkResult();
         }
 
+        /// <summary>
+        /// Выполняет перевод на указанную сумму
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="202">Один из счетов заморожен</response>
+        /// <response code="205">Один из номеров счёта не найден</response>
         [HttpPost]
         [Route("transfer")]
         [Authorize]

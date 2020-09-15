@@ -33,8 +33,13 @@ CREATE TABLE `user` (
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `isConfirmed` tinyint(1) NOT NULL,
   `password` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `account` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `account_UNIQUE` (`account`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  CONSTRAINT `users_account` FOREIGN KEY (`account`) REFERENCES `account` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-13  3:17:08
+-- Dump completed on 2020-09-15 11:18:38

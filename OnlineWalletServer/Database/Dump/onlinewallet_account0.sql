@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `account` (
-  `id` int(16) unsigned NOT NULL,
+  `id` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
   `balance` float unsigned NOT NULL,
   `isFrozen` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
@@ -38,6 +38,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES ('e5c387c8-f329-4ed4-b095-3eb1da668ad4',1000,0);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-13  3:17:06
+-- Dump completed on 2020-09-15 11:18:37
