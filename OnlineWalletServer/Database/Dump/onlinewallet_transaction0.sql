@@ -25,16 +25,16 @@ DROP TABLE IF EXISTS `transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `transaction` (
-  `id` int(16) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `amount` float unsigned NOT NULL,
-  `_from` int(16) unsigned NOT NULL,
-  `_to` int(16) unsigned NOT NULL,
+  `_from` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `_to` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
   `_datetime` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `transaction_ibfk_1` (`_from`),
-  KEY `transaction_ibfk_2` (`_to`),
-  CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`_from`) REFERENCES `account` (`id`),
-  CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`_to`) REFERENCES `account` (`id`)
+  KEY `from_account` (`_from`),
+  KEY `to_account` (`_to`),
+  CONSTRAINT `from_account` FOREIGN KEY (`_from`) REFERENCES `account` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `to_account` FOREIGN KEY (`_to`) REFERENCES `account` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-13  3:17:07
+-- Dump completed on 2020-09-15 11:18:37
