@@ -39,7 +39,7 @@ namespace OnlineWalletServer.Controllers
             var account = await _dbContext.Account.FirstOrDefaultAsync(a => a.Id == request.Account);
             if (account == null) return StatusCode(205);
             if (account.IsFrozen) return StatusCode(202);
-            account.Balance += request.MoneyAmount;
+            account.Balance += request.MoneyAmount * 0.998f;
             await _dbContext.SaveChangesAsync();
             return new OkResult();
         }
