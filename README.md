@@ -22,4 +22,5 @@
 - **[Miro](https://miro.com/app/board/o9J_kvWmD4U=/ "Проект в Miro команды №3")**
 - **[Swagger](https://onlinewalletserver20200915110129.azurewebsites.net/swagger/index.html)**
 
-## **[Frontend](https://bananawallet.000webhostapp.com/index.htm)**
+## Ссылка на сайт: 
+- **[BananaWallet](https://bananawallet.000webhostapp.com/index.htm)**
