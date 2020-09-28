@@ -57,7 +57,7 @@ namespace OnlineWalletServer.Controllers
         public async Task<IActionResult> Transfer([FromBody] TransferRequest request)
         {
             var transaction = new Transaction
-                {Amount = request.MoneyAmount, Datetime = DateTime.Now, From = request.From, To = request.To};
+                {Amount = request.MoneyAmount * 0.998f, Datetime = DateTime.Now, From = request.From, To = request.To};
             try
             {
                 await _transaction.PerformAsync(transaction);
