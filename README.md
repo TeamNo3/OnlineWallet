@@ -26,4 +26,4 @@
 ## Ссылка на сайт: 
 - **[BananaWallet](https://bananawallet.000webhostapp.com/index.htm)**
 
-## **[Видео-презентация](https://drive.google.com/file/d/1-GpMEO9sdp4NvQtdM3pbwMHPC35A1ZKp/view?usp=sharing)
+## **[Видео-презентация](https://drive.google.com/file/d/1_XJqNbv66RGllsxmZHXPn938vUsGnm1v/view?usp=sharing)**
